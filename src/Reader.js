@@ -18,6 +18,14 @@ class Reader {
 
     return this.stream[this.currentPos++];
   }
+
+  retract(n = 1) {
+    this.currentPos -= n;
+
+    if (this.currentPos < 0) {
+      this.currentPos = 0;
+    }
+  }
 }
 
 module.exports = Reader;
