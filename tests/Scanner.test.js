@@ -16,3 +16,15 @@ test("Scanner should get a symbol token by one char", () => {
   expect(scanner.nextToken()).toEqual(new Token(Tokens.RIGHT_PAREN_TOKEN, ")"));
   expect(scanner.nextToken()).toEqual(new Token(Tokens.EOS_TOKEN));
 });
+
+test("Scanner should get a numeric token by chars", () => {
+  const stream = "1 23 456";
+  const scanner = new Scanner();
+
+  scanner.scan(stream);
+
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.NUMERIC_TOKEN, "1"));
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.NUMERIC_TOKEN, "23"));
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.NUMERIC_TOKEN, "456"));
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.EOS_TOKEN));
+});
