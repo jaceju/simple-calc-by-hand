@@ -10,6 +10,10 @@ class Token {
     this.text = text;
     this.line = line;
   }
+
+  is(type) {
+    return this.type === type;
+  }
 }
 
 module.exports = Token;
