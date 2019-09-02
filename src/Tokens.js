@@ -6,7 +6,8 @@ const Tokens = {
   MUL_TOKEN: "MUL_TOKEN", // "*"
   DIV_TOKEN: "DIV_TOKEN", // "/"
   LEFT_PAREN_TOKEN: "LEFT_PAREN_TOKEN", // "("
-  RIGHT_PAREN_TOKEN: "RIGHT_PAREN_TOKEN" // ")"
+  RIGHT_PAREN_TOKEN: "RIGHT_PAREN_TOKEN", // ")"
+  INVALID_TOKEN: "INVALID_TOKEN"
 };
 
 module.exports = Tokens;

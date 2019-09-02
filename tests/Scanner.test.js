@@ -75,3 +75,16 @@ test("Scanner should get tokens from the multi-lines expression", () => {
   expect(scanner.nextToken()).toEqual(new Token(Tokens.NUMERIC_TOKEN, "4", 4));
   expect(scanner.nextToken()).toEqual(new Token(Tokens.EOS_TOKEN, "", 4));
 });
+
+test("Scanner should get tokens from an invalid expression", () => {
+  const stream = `25abc4()`;
+  const scanner = new Scanner();
+
+  scanner.scan(stream);
+
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.NUMERIC_TOKEN, "25"));
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.INVALID_TOKEN, "a"));
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.INVALID_TOKEN, "b"));
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.INVALID_TOKEN, "c"));
+  expect(scanner.nextToken()).toEqual(new Token(Tokens.NUMERIC_TOKEN, "4"));
+});

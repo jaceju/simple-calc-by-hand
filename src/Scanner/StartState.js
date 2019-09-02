@@ -1,3 +1,5 @@
+const Tokens = require("../Tokens");
+
 class StartState {
   constructor(context) {
     this.context = context;
@@ -5,6 +7,10 @@ class StartState {
 
   isNextLine(char) {
     return char === "\r" || char === "\n";
+  }
+
+  isSpace(char) {
+    return char === " ";
   }
 
   handle(char) {
@@ -18,8 +24,11 @@ class StartState {
       case this.isNextLine(char):
         this.context.currentLine++;
         return this; // Ignore next line chars
+      case this.isSpace(char):
+        return this; // Ignore space chars
       default:
-        return this; // Ignore other chars
+        this.context.setToken(Tokens.INVALID_TOKEN, char);
+        return this.context.states.EndState;
     }
   }
 }
