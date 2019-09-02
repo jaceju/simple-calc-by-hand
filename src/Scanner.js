@@ -7,6 +7,7 @@ const EndState = require("./Scanner/EndState");
 
 class Scanner {
   constructor() {
+    this.currentLine = 1;
     this.reader = new Reader();
     this.currentToken = new Token();
     this.states = {
@@ -22,7 +23,7 @@ class Scanner {
   }
 
   setToken(type, text = "") {
-    this.currentToken.set(type, text);
+    this.currentToken.set(type, text, this.currentLine);
   }
 
   nextToken() {
