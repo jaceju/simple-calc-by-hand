@@ -1,5 +1,6 @@
 const Scanner = require("./Scanner");
 const Rules = require("./Rules");
+const ExpressionStatement = require("./Nodes/ExpressionStatement");
 
 class Parser {
   constructor() {
@@ -29,7 +30,7 @@ class Parser {
     this.currentToken = this.scanner.nextToken();
 
     try {
-      return this.rules.startRule().handle();
+      return new ExpressionStatement(this.rules.startRule().handle());
     } catch (e) {
       return e;
     }

@@ -1,4 +1,5 @@
 const Tokens = require("../Tokens");
+const Literal = require("../Nodes/Literal");
 
 class Factor {
   constructor(context) {
@@ -6,17 +7,18 @@ class Factor {
   }
 
   handle() {
-    let value = 0;
+    let node;
 
     if (this.context.currentToken.is(Tokens.NUMERIC_TOKEN)) {
-      value = Number(this.context.currentToken.text);
+      node = new Literal(Number(this.context.currentToken.text));
       this.context.shouldMatch(Tokens.NUMERIC_TOKEN);
     } else {
       this.context.shouldMatch(Tokens.LEFT_PAREN_TOKEN);
-      value = this.context.rule("Expression").handle();
+      node = this.context.rule("Expression").handle();
       this.context.shouldMatch(Tokens.RIGHT_PAREN_TOKEN);
     }
-    return value;
+
+    return node;
   }
 }
 

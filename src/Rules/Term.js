@@ -1,4 +1,5 @@
 const Tokens = require("../Tokens");
+const BinaryExpression = require("../Nodes/BinaryExpression");
 
 class Term {
   constructor(context) {
@@ -6,7 +7,9 @@ class Term {
   }
 
   handle() {
-    let value = this.context.rule("Factor").handle();
+    let node, right, operator;
+
+    node = this.context.rule("Factor").handle();
 
     while (
       this.context.currentToken.is(Tokens.MUL_TOKEN) ||
@@ -14,14 +17,18 @@ class Term {
     ) {
       if (this.context.currentToken.is(Tokens.MUL_TOKEN)) {
         this.context.shouldMatch(Tokens.MUL_TOKEN);
-        value *= this.context.rule("Factor").handle();
+        right = this.context.rule("Factor").handle();
+        operator = "*";
+        node = new BinaryExpression(operator, node, right);
       } else {
         this.context.shouldMatch(Tokens.DIV_TOKEN);
-        value /= this.context.rule("Factor").handle();
+        right = this.context.rule("Factor").handle();
+        operator = "/";
+        node = new BinaryExpression(operator, node, right);
       }
     }
 
-    return value;
+    return node;
   }
 }
 
