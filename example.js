@@ -1,12 +1,14 @@
 const Parser = require("./src/Parser");
-const Interpreter = require("./src/Interpreter");
+const Compiler = require("./src/Compiler");
 
-const stream = "5*(3-1)";
+const stream = "(8+5)*(3-1)";
 
 const parser = new Parser();
-const interpreter = new Interpreter();
+const compiler = new Compiler();
 
 const result = parser.parse(stream);
+const js = compiler.compile(result);
 
-console.log(JSON.stringify(result));
-console.log(interpreter.run(result));
+console.log(stream);
+console.log(js);
+eval(js);
